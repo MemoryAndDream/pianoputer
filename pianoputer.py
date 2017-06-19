@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+#coding=utf8
 from scipy.io import wavfile
 import argparse
 import numpy as np
@@ -19,10 +19,11 @@ def stretch(snd_array, factor, window_size, h):
     """ Stretches/shortens a sound, by some factor. """
     phase = np.zeros(window_size)
     hanning_window = np.hanning(window_size)
-    result = np.zeros(len(snd_array) / factor + window_size)
+    result = np.zeros(int(len(snd_array)/ factor) + window_size)
 
     for i in np.arange(0, len(snd_array) - (window_size + h), h*factor):
         # Two potentially overlapping subarrays
+        i=int(i)
         a1 = snd_array[i: i + window_size]
         a2 = snd_array[i + h: i + window_size + h]
 
@@ -69,7 +70,7 @@ def parse_arguments():
     parser.add_argument(
         '--verbose', '-v',
         action='store_true',
-        help='verbose mode')
+        help='verbose mode')#verbose 详细
 
     return (parser.parse_args(), parser)
 
